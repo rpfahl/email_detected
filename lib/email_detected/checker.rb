@@ -78,7 +78,7 @@ class EmailDetected::Checker < Net::SMTP
         Net::SMTPFatalError,
         Net::SMTPUnknownError => error
       ret = MailCheckStatus.new(error.to_s[0..2].to_i, error)
-    rescue IOError, TimeoutError, ArgumentError => error
+    rescue IOError, Timeout.timeout, ArgumentError => error
       ret = MailCheckStatus.new(-1, error)
     end
     return ret
